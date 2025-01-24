@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 interface IData {
   createdAt: string;
@@ -39,28 +39,28 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const sortItems = () => {
-    const sortedItems: Array<IData> = [...items];
-
-    if (sortType === 1) {
-      sortedItems.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    }
-
-    if (sortType === 2) {
-      sortedItems.sort((a, b) => sortFilename(a.filename, b.filename));
-    }
-
-    if (sortType === 3) {
-      sortedItems.sort((a, b) => sortFilename(b.filename, a.filename));
-    }
-
-    return sortedItems;
-  };
-
-  useEffect(() => {
-    console.log(sortType);
-    sortItems();
-  }, [sortType]);
+  const sortItems = useCallback(() => {
+      const sortedItems: Array<IData> = [...items];
+  
+      if (sortType === 1) {
+        sortedItems.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+      }
+  
+      if (sortType === 2) {
+        sortedItems.sort((a, b) => sortFilename(a.filename, b.filename));
+      }
+  
+      if (sortType === 3) {
+        sortedItems.sort((a, b) => sortFilename(b.filename, a.filename));
+      }
+  
+      return sortedItems;
+    }, [items, sortType]);
+  
+    useEffect(() => {
+      console.log(sortType);
+      sortItems();
+    }, [sortType, sortItems]);
   
 
   return (
