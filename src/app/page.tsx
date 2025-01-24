@@ -34,6 +34,7 @@ export default function Home() {
       const res = await fetch('/api/items');
       const data = await res.json();
       
+      console.log(data);
       setItems(data);
     };
     fetchData();

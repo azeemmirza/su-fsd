@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/papaparse": "^5.3.15",
     "axios": "^1.7.9",
     "next": "15.1.6",
+    "papaparse": "^5.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
