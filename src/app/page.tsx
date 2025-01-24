@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 interface IData {
@@ -9,16 +8,6 @@ interface IData {
 };
 
 // Server Actions
-
-const getData = async () => {
-  try {
-    const data = await axios.get('/api');
-
-    return data;
-  } catch (e) {
-    console.error(e);
-  }
-}
 
 const sortFilename = (a: string, b: string) => {
   const aNum = extractNumbers(a);
@@ -54,7 +43,7 @@ export default function Home() {
     const sortedItems: Array<IData> = [...items];
 
     if (sortType === 1) {
-      sortedItems.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      sortedItems.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
     }
 
     if (sortType === 2) {
@@ -79,7 +68,7 @@ export default function Home() {
       <div className="mb-4">
         <select
           value={sortType}
-          onChange={(e) => setSortType(parseInt(e.target.value, 10))}
+          onChange={(e) => setSortType(parseInt(e.target.value, 10) as sortOptions)}
           className="border p-2"
         >
           <option className="grey-400" value={1}>Sort by Created At (Asc)</option>
